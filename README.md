@@ -1,6 +1,6 @@
 # Helpers for Git hooks
 
-![Version](https://img.shields.io/github/v/tag/flex-is/git-hooks?label=stable&sort=semver)
+[![Version](https://img.shields.io/github/v/tag/flex-is/git-hooks?label=stable&sort=semver)](https://github.com/flex-is/git-hooks/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-informational.svg)](https://opensource.org/licenses/MIT)
 
 This repository contains useful bash functions for git hooks.
