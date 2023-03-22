@@ -18,10 +18,12 @@ function php_analyse () {
         exit 1
     fi
 
+    msg_info "running php static analysis..."
     $analyser analyse -c phpstan.dist.neon --memory-limit=4G --no-interaction --no-progress
     local -i -r analyser_exit_code=$?
     if [ 0 -ne $analyser_exit_code ]; then
-        msg_error "static analysis of php failed"
+        msg_error "php static analysis failed"
+        msg_error "please run PHPStan & fix the issues first"
         exit 1
     fi
 }
@@ -41,10 +43,11 @@ function php_lint_cached () {
         return
     fi
 
+    msg_info "running php linting..."
     $fixer fix --config=.php-cs-fixer.dist.php --no-interaction --dry-run --stop-on-violation --quiet $cached_files
     local -i -r fixer_exit_code=$?
     if [ 0 -ne $fixer_exit_code ]; then
-        msg_error "lint validation of php failed"
+        msg_error "php linting failed"
         msg_error "please run PHP CS fixer first"
         exit 1
     fi

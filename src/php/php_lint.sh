@@ -13,10 +13,11 @@ function php_lint_cached () {
         return
     fi
 
+    msg_info "running php linting..."
     $fixer fix --config=.php-cs-fixer.dist.php --no-interaction --dry-run --stop-on-violation --quiet $cached_files
     local -i -r fixer_exit_code=$?
     if [ 0 -ne $fixer_exit_code ]; then
-        msg_error "lint validation of php failed"
+        msg_error "php linting failed"
         msg_error "please run PHP CS fixer first"
         exit 1
     fi
