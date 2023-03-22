@@ -1,10 +1,10 @@
 # Changelog
 
-## Unreleased
+## 0.0.1 - 2023-03-22
 ### Added
--   Common message output format
--   Git helper functions
-    -   determine wheter commit is a merge commit
--   PHP analyse script
--   PHP lint validator script
--   MakeFile recipe for distributables
+-   MakeFile recipe to generate distributables
+-   Functions:
+    -   Common message output format
+    -   Determine whether commit is a merge commit
+    -   PHP analyse
+    -   PHP CS fixer
