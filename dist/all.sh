@@ -9,6 +9,16 @@ msg_error () {
     echo "~ [ERROR] $1"
 }
 
+# Returns true if current commit is a merge commit
+git_is_merge_commit() {
+    if git rev-parse -q --verify MERGE_HEAD; then
+        true
+        return
+    fi
+
+    false
+}
+
 # Run PHP static analysis tool
 php_analyse () {
     local -r analyser="vendor/bin/phpstan"
@@ -58,14 +68,4 @@ php_lint_cached () {
 # Alias for PHP lint
 php_cs_cached () {
     php_lint_cached
-}
-
-# Returns true if current commit is a merge commit
-git_is_merge_commit() {
-    if git rev-parse -q --verify MERGE_HEAD; then
-        true
-        return
-    fi
-
-    false
 }
