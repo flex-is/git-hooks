@@ -8,8 +8,5 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
-            - name: Generate distributable file
-              run: make it
-
             - name: Validate distributable file
-              run: git diff --quiet ${{ github.event.before }} ${{ github.sha }} -- dist || { echo "Please generate distributable file using MakeFile"; exit 1;}
+              run: make it && git diff --quiet -- dist || { echo "Please generate distributable file using MakeFile"; exit 1;}
