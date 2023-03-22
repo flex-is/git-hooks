@@ -10,5 +10,14 @@ jobs:
               with:
                 fetch-depth: 2
 
+            - name: Export distributable file
+              run: make it && cat dist/all.sh
+
+            - name: Export git diff
+              run: git diff -- dist
+
+            - name: Export git diff on current commit
+              run: git diff ${{ github.sha }} -- dist
+
             - name: Validate distributable file
               run: make it && git diff --quiet ${{ github.sha }} -- dist || { echo "Please generate distributable file using MakeFile"; exit 1;}
