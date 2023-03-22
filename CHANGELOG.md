@@ -5,3 +5,4 @@
 -   Common message output format
 -   Git helper functions
     -   determine wheter commit is a merge commit
+-   PHP analyse script
