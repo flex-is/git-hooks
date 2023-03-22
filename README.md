@@ -22,7 +22,7 @@ Create simple git hooks using provided functions.
 
 # Validate coding standards
 if ! git_is_merge_commit; then
-    php_lint
+    php_lint_cached
 fi
 ```
 
