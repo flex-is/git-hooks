@@ -11,4 +11,4 @@ jobs:
                 fetch-depth: 2
 
             - name: Validate distributable file
-              run: make it && git diff --quiet -- dist || { echo "Please generate distributable file using MakeFile"; exit 1;}
+              run: make it && git diff --quiet origin/${{ github.base_ref }}..${{ github.sha }} -- dist || { echo "Please generate distributable file using MakeFile"; exit 1;}
