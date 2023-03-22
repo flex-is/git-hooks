@@ -1,5 +1,5 @@
 # Run PHP static analysis tool
-function php_analyse () {
+php_analyse () {
     local -r analyser="vendor/bin/phpstan"
 
     if ! [ -x $analyser ]; then

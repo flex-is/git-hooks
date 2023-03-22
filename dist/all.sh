@@ -1,16 +1,16 @@
 
 # Common info message output
-function msg_info () {
+msg_info () {
     echo "~ [INFO] $1"
 }
 
 # Common error message output
-function msg_error () {
+msg_error () {
     echo "~ [ERROR] $1"
 }
 
 # Run PHP static analysis tool
-function php_analyse () {
+php_analyse () {
     local -r analyser="vendor/bin/phpstan"
 
     if ! [ -x $analyser ]; then
@@ -29,7 +29,7 @@ function php_analyse () {
 }
 
 # Run PHP linter tool on cached files
-function php_lint_cached () {
+php_lint_cached () {
     local -r fixer="vendor/bin/php-cs-fixer"
 
     if ! [ -x $fixer ]; then
@@ -56,12 +56,12 @@ function php_lint_cached () {
 }
 
 # Alias for PHP lint
-function php_cs_cached () {
+php_cs_cached () {
     php_lint_cached
 }
 
 # Returns true if current commit is a merge commit
-function git_is_merge_commit() {
+git_is_merge_commit() {
     if git rev-parse -q --verify MERGE_HEAD; then
         true
         return

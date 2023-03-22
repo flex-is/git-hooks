@@ -1,9 +1,9 @@
 # Common info message output
-function msg_info () {
+msg_info () {
     echo "~ [INFO] $1"
 }
 
 # Common error message output
-function msg_error () {
+msg_error () {
     echo "~ [ERROR] $1"
 }

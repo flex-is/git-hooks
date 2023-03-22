@@ -1,5 +1,5 @@
 # Run PHP linter tool on cached files
-function php_lint_cached () {
+php_lint_cached () {
     local -r fixer="vendor/bin/php-cs-fixer"
 
     if ! [ -x $fixer ]; then
@@ -26,6 +26,6 @@ function php_lint_cached () {
 }
 
 # Alias for PHP lint
-function php_cs_cached () {
+php_cs_cached () {
     php_lint_cached
 }
