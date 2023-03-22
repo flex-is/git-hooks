@@ -19,7 +19,7 @@ function php_analyse () {
     fi
 
     msg_info "running php static analysis..."
-    $analyser analyse -c phpstan.dist.neon --memory-limit=4G --no-interaction --no-progress
+    $analyser analyse -c phpstan.dist.neon --memory-limit=4G --no-interaction --no-progress --quiet
     local -i -r analyser_exit_code=$?
     if [ 0 -ne $analyser_exit_code ]; then
         msg_error "php static analysis failed"
