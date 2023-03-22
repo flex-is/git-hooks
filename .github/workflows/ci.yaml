@@ -12,4 +12,4 @@ jobs:
               run: make it
 
             - name: Validate distributable file
-              run: git diff --quiet dist || { echo "Please generate distributable file using MakeFile"; exit 1;}
+              run: git diff --quiet origin/${GITHUB_HEAD_REF} -- dist || { echo "Please generate distributable file using MakeFile"; exit 1;}
