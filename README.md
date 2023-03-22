@@ -7,9 +7,11 @@ This repository contains useful bash functions for git hooks.
 
 ## Installation
 
-Download and execute scripts:
+Download distributable file.
 
-`$ . <(curl -s https://raw.githubusercontent.com/flex-is/git-hooks/main/dist/all.sh)`
+`$ curl -s https://raw.githubusercontent.com/flex-is/git-hooks/main/dist/all.sh -o ~/.bash_functions`
+
+> 💡 When you invoke a script non-interactively, these functions will not be recognized by default. You must either import them in the beginning of every script using `. ~/.bash_functions`, or set up `BASH_ENV=/.../.bash_functions` path.
 
 ## Usage
 
@@ -37,7 +39,7 @@ php_analyse
 
 ## Contributing
 
-When creating a new version, please generate distributables with MakeFile recipe. This process is not yet fully automated.
+When creating a new version, please generate distributable file with MakeFile recipe. This process is not yet fully automated.
 
 `$ make`
 
