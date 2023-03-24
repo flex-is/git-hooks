@@ -7,16 +7,19 @@ git_install_hooks() {
     do
         hook=".git/hooks/$(basename -- $source)"
         touch $hook
-        if ! [ -s $hook ]; then
-            echo '#!/bin/sh' $hook
-        fi
 
         line=$(sed -n -e "/$separator/=" $hook | sed -n '$p')
-        if ! [ -z $line ] && [ $line -ge 2 ]; then
-            sed -i "2,${line}d" $hook
+        if ! [ -z $line ]; then
+            sed -i "1,${line}d" $hook
         fi
 
-        sed -i "2i $separator" $hook
+        if ! [ -s $hook ]; then
+            echo '#!/bin/sh' > $hook
+            echo $separator >> $hook
+        else
+            sed -i "2i $separator" $hook
+        fi
+
         numcmd=$((${#commands[@]}-1))
         for i in $(seq $numcmd -1 0); do
             command="${commands[$i]//\@source/$source}"
