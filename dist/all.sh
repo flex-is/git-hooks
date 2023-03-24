@@ -1,14 +1,4 @@
 
-# Common info message output
-msg_info () {
-    echo "~ [INFO] $1"
-}
-
-# Common error message output
-msg_error () {
-    echo "~ [ERROR] $1"
-}
-
 # Install git hooks with provided commands
 git_install_hooks() {
     local -r separator='### @auto-generated'
@@ -67,6 +57,16 @@ git_is_merge_commit() {
     fi
 
     false
+}
+
+# Common info message output
+msg_info () {
+    echo "~ [INFO] $1"
+}
+
+# Common error message output
+msg_error () {
+    echo "~ [ERROR] $1"
 }
 
 # Run PHP static analysis tool
