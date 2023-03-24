@@ -1,5 +1,5 @@
 # Install git hooks with provided commands
-git_install_hooks() {
+_git_install_hooks() {
     local -r separator='### @auto-generated'
     commands=("$@")
 
@@ -33,7 +33,7 @@ git_install_hooks() {
 git_install_hooks_local() {
     local commands=("sh @source")
 
-    git_install_hooks "${commands[@]}"
+    _git_install_hooks "${commands[@]}"
 }
 
 # Install git hooks with remote calls
@@ -48,7 +48,7 @@ git_install_hooks_remote() {
 
     commands+=("ssh $remoteHost \"cd $remoteDir; sh @source\"")
 
-    git_install_hooks "${commands[@]}"
+    _git_install_hooks "${commands[@]}"
 }
 
 # Returns true if current commit is a merge commit
