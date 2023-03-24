@@ -12,28 +12,27 @@ msg_error () {
 # Install git hooks with provided commands
 git_install_hooks() {
     local -r separator='### @auto-generated'
-    local -i line=0
-
     commands=("$@")
 
     find .githooks -type f | while read source
     do
         hook=".git/hooks/$(basename -- $source)"
-        line=$(sed -n -e "/${separator}/=" $hook | sed -n '$p')
-
-        if ! [ -z $line ]; then
-            sed -i "1,${line}d" $hook
+        touch $hook
+        if ! [ -s $hook ]; then
+            echo '#!/bin/sh' $hook
         fi
 
-        sed -i '1i #!/bin/sh' $hook
-        line=1
-        for command in "${commands[@]}"; do
-            line+=1
-            command="${command//\@source/$source}"
-            sed -i "${line}i $command" $hook
+        line=$(sed -n -e "/$separator/=" $hook | sed -n '$p')
+        if ! [ -z $line ] && [ $line -ge 2 ]; then
+            sed -i "2,${line}d" $hook
+        fi
+
+        sed -i "2i $separator" $hook
+        numcmd=$((${#commands[@]}-1))
+        for i in $(seq $numcmd -1 0); do
+            command="${commands[$i]//\@source/$source}"
+            sed -i "2i $command" $hook
         done
-        line+=1
-        sed -i "${line}i $separator" $hook
 
     done
 }
