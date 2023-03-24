@@ -9,6 +9,7 @@ git_install_hooks() {
     do
         hook=".git/hooks/$(basename -- $source)"
         line=$(sed -n -e "/${separator}/=" $hook | sed -n '$p')
+        touch $hook
 
         if ! [ -z $line ]; then
             sed -i "1,${line}d" $hook
