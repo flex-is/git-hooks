@@ -40,9 +40,9 @@ php_analyse
 
 ## Contributing
 
-When creating a new version, please generate distributable file with MakeFile recipe. This process is not yet fully automated.
+When creating a new version, please generate distributable files with MakeFile `dist` target. This process is not yet fully automated.
 
-`$ make`
+`$ make dist`
 
 ## License
 
