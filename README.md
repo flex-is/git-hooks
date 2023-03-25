@@ -24,9 +24,7 @@ Create simple git hooks using provided functions.
 #!/bin/bash
 
 # Validate coding standards
-if ! git_is_merge_commit; then
-    php_lint_cached
-fi
+php_lint_cached
 ```
 
 ### pre-push:
