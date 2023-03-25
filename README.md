@@ -24,24 +24,33 @@ fi
 
 ## Usage
 
-Create simple git hooks using provided functions.
+Commit `.githooks` directory in the root of your project and place hooks inside it. Hook names are identical to the [ones used by git](https://git-scm.com/docs/githooks).
 
-### pre-commit:
+```
+└── .githooks
+    ├── pre-commit
+    └── pre-push
+```
+
+Then generate git hooks using `git_install_hooks_local` or `git_install_hooks_remote`, if you are developing on a remote server.
+
+### Remote example
+
+#### `.git/hooks/pre-commit`:
+
+```bash
+#!/bin/sh
+ssh dev "cd /path/to/project; sh .githooks/pre-commit"
+### @auto-generated
+```
+
+#### `.githooks/pre-commit`:
 
 ```bash
 #!/bin/bash
 
 # Validate coding standards
 php_lint_cached
-```
-
-### pre-push:
-
-```bash
-#!/bin/bash
-
-# Run static analysis tool
-php_analyse
 ```
 
 ## Contributing
