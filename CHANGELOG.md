@@ -2,10 +2,10 @@
 
 ## 0.1.0 - 2023-03-26
 ### Added
-- Shared hooks
+-   Shared hooks
 
 ### Changed
-- Makefile `dist` target
+-   Makefile `dist` target
 
 ## 0.0.2 - 2023-03-22
 ### Added
