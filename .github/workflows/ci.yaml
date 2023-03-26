@@ -9,4 +9,4 @@ jobs:
             - uses: actions/checkout@v3
 
             - name: Validate distributable file
-              run: make it && git diff --quiet -- dist || { echo "Please generate distributable file using MakeFile"; exit 1;}
+              run: make dist && git diff --quiet -- dist || { echo "Please generate distributable file using MakeFile"; exit 1;}
