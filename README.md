@@ -4,7 +4,7 @@
 [![Build](https://img.shields.io/github/actions/workflow/status/flex-is/git-hooks/ci.yaml?branch=main&logo=github)](https://github.com/flex-is/git-hooks/actions/workflows/ci.yaml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-informational.svg)](https://opensource.org/licenses/MIT)
 
-This repository contains useful bash functions for git hooks, including auto-generation.
+This repository contains useful bash functions for git hooks, including sharing hooks with your team.
 
 ## Installation
 
@@ -22,7 +22,18 @@ fi
 
 ## Usage
 
-Commit `.githooks` directory in the root of your project and place hooks inside it. Hook names are identical to the [ones used by git](https://git-scm.com/docs/githooks).
+Manually create a local git hook. Here is the list of currently provided functions:
+-   git
+    -   `git_is_merge_commit` - check whether current commit is a merge commit
+-   php
+    -   `php_lint_cached` - validate coding standards only on cached/staged files
+    -   `php_analyse` - run static analysis tool
+
+## Share
+
+If you are developing in a team, you can create and share hooks inside the same repository.
+
+Create `.githooks` directory in the root of your project and commit hook files inside it. Hook names are identical to the [ones used by git](https://git-scm.com/docs/githooks).
 
 ```
 └── .githooks
@@ -30,7 +41,7 @@ Commit `.githooks` directory in the root of your project and place hooks inside 
     └── pre-push
 ```
 
-Then generate git hooks using `git_install_hooks_local` or `git_install_hooks_remote`, if you are developing on a remote server.
+Generate local hooks using `git_install_hooks_local`. If you are developing on a remote server, you can use `git_install_hooks_remote`, where you will be asked for SSH host and remote path.
 
 ### Remote example
 
@@ -38,7 +49,7 @@ Then generate git hooks using `git_install_hooks_local` or `git_install_hooks_re
 
 ```bash
 #!/bin/sh
-ssh dev "cd /path/to/project; sh .githooks/pre-commit"
+ssh remote_host "cd /remote/path; sh .githooks/pre-commit"
 ### @auto-generated
 ```
 
