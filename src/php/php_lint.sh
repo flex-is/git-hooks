@@ -1,3 +1,10 @@
+# This file is part of helper package for git hooks.
+#
+# (c) Martin Miskovic <miskovic.martin@gmail.com>
+#
+# For the full copyright and license information, please view
+# the LICENSE file that was distributed with this source code.
+
 # Run PHP linter tool on cached files
 php_lint_cached () {
     local -r fixer="vendor/bin/php-cs-fixer"
