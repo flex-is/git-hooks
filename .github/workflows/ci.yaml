@@ -14,6 +14,5 @@ jobs:
                 cat dist/all.sh
 
             - name: Validate distributable files
-              run: |
-                cat dist/all.sh
-                git diff --quiet -- dist || { echo "Please generate distributable file using MakeFile"; exit 1;}
+              run:
+                git diff --quiet -- dist || { echo "Please generate distributable files using MakeFile"; exit 1;}
