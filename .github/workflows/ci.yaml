@@ -8,5 +8,12 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
-            - name: Validate distributable file
-              run: make dist && git diff --quiet -- dist || { echo "Please generate distributable file using MakeFile"; exit 1;}
+            - name: Create distributable files
+              run: |
+                make dist
+                cat dist/all.sh
+
+            - name: Validate distributable files
+              run: |
+                cat dist/all.sh
+                git diff --quiet -- dist || { echo "Please generate distributable file using MakeFile"; exit 1;}
