@@ -2,8 +2,8 @@
 
 ## Unreleased
 -   Make dist includes only `.sh` files
--   Added manual header comments
--   Added distributable header comment
+-   Added automatic source header comments
+-   Added automatic dist header comment
 
 ## 0.1.0 - 2023-03-26
 ### Added

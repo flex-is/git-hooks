@@ -1,3 +1,4 @@
+####################################################################################################
 # Helper package for git hooks.
 # https://github.com/flex-is/git-hooks/
 # v0.1.0
@@ -6,6 +7,7 @@
 #
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
+####################################################################################################
 
 # Install git hooks with provided commands
 _git_install_hooks() {
