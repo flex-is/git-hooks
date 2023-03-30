@@ -20,24 +20,36 @@ git_current_branch() {
 
 # Install git hooks with local calls
 git_install_hooks_local() {
+    local -r sourceDirDefault='scripts/git/hooks'
     local commands=("sh @source")
 
-    _git_install_hooks "${commands[@]}"
+    read -p "Enter source dir ($sourceDirDefault): " sourceDir
+    if [ -z $sourceDir ]; then
+        sourceDir=$sourceDirDefault
+    fi
+
+    _git_install_hooks $sourceDir "${commands[@]}"
 }
 
 # Install git hooks with remote calls
 git_install_hooks_remote() {
+    local -r remoteDirDefault=$(pwd)
+    local -r sourceDirDefault='scripts/git/hooks'
     local commands=()
 
     read -p "Enter SSH host: " remoteHost
-    read -p "Enter remote path ($(pwd)): " remoteDir
+    read -p "Enter remote root dir ($remoteDirDefault): " remoteDir
+    read -p "Enter source dir ($sourceDirDefault): " sourceDir
     if [ -z $remoteDir ]; then
-        remoteDir=$(pwd)
+        remoteDir=$remoteDirDefault
+    fi
+    if [ -z $sourceDir ]; then
+        sourceDir=$sourceDirDefault
     fi
 
     commands+=("ssh $remoteHost \"cd $remoteDir; sh @source\"")
 
-    _git_install_hooks "${commands[@]}"
+    _git_install_hooks $sourceDir "${commands[@]}"
 }
 
 # Returns true if current commit is a merge commit
@@ -70,9 +82,11 @@ git_is_current_branch_in_list() {
 # Install git hooks with provided commands
 _git_install_hooks() {
     local -r separator='### @auto-generated'
+    local -r sourceDir=$1
+    shift
     commands=("$@")
 
-    find .githooks -type f | while read source
+    find $sourceDir -type f | while read source
     do
         hook=".git/hooks/$(basename -- $source)"
         touch $hook
