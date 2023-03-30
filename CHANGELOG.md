@@ -8,6 +8,7 @@
 -   Added git function to get name of the current branch
 -   Added git function to check if current branch is in list of provided names
 -   Customized relative path to source git hooks. default `scripts\git\hooks`
+-   Allow each hook file to choose executable shell
 
 ## 0.1.0 - 2023-03-26
 ### Added

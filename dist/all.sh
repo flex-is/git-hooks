@@ -23,7 +23,7 @@ git_current_branch() {
 # Install git hooks with local calls
 git_install_hooks_local() {
     local -r sourceDirDefault='scripts/git/hooks'
-    local commands=("sh @source")
+    local commands=("@source")
 
     read -p "Enter source dir ($sourceDirDefault): " sourceDir
     if [ -z $sourceDir ]; then
@@ -49,7 +49,7 @@ git_install_hooks_remote() {
         sourceDir=$sourceDirDefault
     fi
 
-    commands+=("ssh $remoteHost \"cd $remoteDir; sh @source\"")
+    commands+=("ssh $remoteHost \"cd $remoteDir; @source\"")
 
     _git_install_hooks $sourceDir "${commands[@]}"
 }
@@ -90,6 +90,7 @@ _git_install_hooks() {
 
     find $sourceDir -type f | while read source
     do
+        chmod a+x $source
         hook=".git/hooks/$(basename -- $source)"
         touch $hook
 
