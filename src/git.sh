@@ -7,35 +7,15 @@
 # the LICENSE file that was distributed with this source code.
 ###################################################################################################:
 
-# Install git hooks with provided commands
-_git_install_hooks() {
-    local -r separator='### @auto-generated'
-    commands=("$@")
+# If there are whitespace errors, print the offending file names and fail.
+git_check_whitespace_cached () {
+    git diff-index --check --cached HEAD --
+}
 
-    find .githooks -type f | while read source
-    do
-        hook=".git/hooks/$(basename -- $source)"
-        touch $hook
-
-        line=$(sed -n -e "/$separator/=" $hook | sed -n '$p')
-        if ! [ -z $line ]; then
-            sed -i "1,${line}d" $hook
-        fi
-
-        if ! [ -s $hook ]; then
-            echo '#!/bin/sh' > $hook
-            echo $separator >> $hook
-        else
-            sed -i "2i $separator" $hook
-        fi
-
-        numcmd=$((${#commands[@]}-1))
-        for i in $(seq $numcmd -1 0); do
-            command="${commands[$i]//\@source/$source}"
-            sed -i "2i $command" $hook
-        done
-
-    done
+# Returns short name of the current branch
+git_current_branch() {
+    git symbolic-ref --short HEAD
+    return
 }
 
 # Install git hooks with local calls
@@ -68,4 +48,52 @@ git_is_merge_commit() {
     fi
 
     false
+}
+
+# Check if current branch is in list
+git_is_current_branch_in_list() {
+    local -r current=$(git_current_branch)
+    branches=("$@")
+
+    for i in "${branches[@]}"
+    do
+        if [ $i == $current ]; then
+            true
+            return
+        fi
+    done
+
+    false
+    return
+}
+
+# Install git hooks with provided commands
+_git_install_hooks() {
+    local -r separator='### @auto-generated'
+    commands=("$@")
+
+    find .githooks -type f | while read source
+    do
+        hook=".git/hooks/$(basename -- $source)"
+        touch $hook
+
+        line=$(sed -n -e "/$separator/=" $hook | sed -n '$p')
+        if ! [ -z $line ]; then
+            sed -i "1,${line}d" $hook
+        fi
+
+        if ! [ -s $hook ]; then
+            echo '#!/bin/sh' > $hook
+            echo $separator >> $hook
+        else
+            sed -i "2i $separator" $hook
+        fi
+
+        numcmd=$((${#commands[@]}-1))
+        for i in $(seq $numcmd -1 0); do
+            command="${commands[$i]//\@source/$source}"
+            sed -i "2i $command" $hook
+        done
+
+    done
 }
