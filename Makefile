@@ -1,6 +1,7 @@
 SHELL := /bin/bash
-SRC_FILES := $(shell find src -type f -name '*.sh' | sort)
 HEADER_TMP_FILE := .tmp
+SRC_FILES := $(shell find src -type f -name '*.sh' | sort)
+VERSION := $(shell cat VERSION)
 
 .PHONY: help build lint header-comments dist
 
@@ -14,7 +15,6 @@ lint: header-comments # Fix coding standards violations.
 header-comments: # Add or replace header comment on all source files.
 	@for file in ${SRC_FILES}; do \
 		if ! diff --strip-trailing-cr .header.src <(head -n +8 $${file}) &>/dev/null; then \
-			echo "fixing $${file}"; \
 			cat .header.src > ${HEADER_TMP_FILE}; \
 			sed -E '/^#{99}:/,/^#{99}:/d' $${file} >> ${HEADER_TMP_FILE}; \
 			cat ${HEADER_TMP_FILE} > $${file}; \
@@ -24,4 +24,5 @@ header-comments: # Add or replace header comment on all source files.
 
 dist: # Generate distributable files.
 	@cat .header.dist > dist/all.sh
+	@sed -i "s/@VERSION@/${VERSION}/g" dist/all.sh
 	@tail -n +9 -q ${SRC_FILES} >> dist/all.sh
