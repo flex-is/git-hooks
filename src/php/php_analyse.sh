@@ -7,7 +7,11 @@
 # the LICENSE file that was distributed with this source code.
 ###################################################################################################:
 
+##################################################
 # Run PHP static analysis tool
+# RETURN:
+#   0 if no issue is found, non-zero corresponds with phpstan exit codes.
+##################################################
 php_analyse () {
     local -r analyser="vendor/bin/phpstan"
 
@@ -22,6 +26,6 @@ php_analyse () {
     if [ 0 -ne $analyser_exit_code ]; then
         msg_error "php static analysis failed"
         msg_error "please run PHPStan & fix the issues first"
-        exit 1
+        exit $analyser_exit_code
     fi
 }

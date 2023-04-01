@@ -7,7 +7,11 @@
 # the LICENSE file that was distributed with this source code.
 ###################################################################################################:
 
-# Run PHP linter tool on cached files
+##################################################
+# Run PHP linter tool on cached/staged files
+# RETURN:
+#   0 if no issue is found, non-zero corresponds with cs fixer exit codes.
+##################################################
 php_lint_cached () {
     local -r fixer="vendor/bin/php-cs-fixer"
 
@@ -28,13 +32,15 @@ php_lint_cached () {
     if [ 0 -ne $fixer_exit_code ]; then
         msg_error "php linting failed"
         msg_error "please run PHP CS fixer first"
-        exit 1
+        exit $fixer_exit_code
     fi
 
     return
 }
 
+##################################################
 # Alias for PHP lint
+##################################################
 php_cs_cached () {
     php_lint_cached
 }

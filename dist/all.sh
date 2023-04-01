@@ -25,18 +25,26 @@
 # SOFTWARE.
 ####################################################################################################
 
-# If there are whitespace errors, print the offending file names and fail.
+##################################################
+# Check whitespace errors on cached/staged files
+##################################################
 git_check_whitespace_cached () {
     git diff-index --check --cached HEAD --
 }
 
+##################################################
 # Returns short name of the current branch
+# OUTPUTS:
+#   Name of the current branch
+##################################################
 git_current_branch() {
     git symbolic-ref --short HEAD
     return
 }
 
-# Install git hooks with local calls
+##################################################
+# Install standard git hooks
+##################################################
 git_install_hooks_local() {
     local -r sourceDirDefault='scripts/git/hooks'
     local commands=("@source")
@@ -49,7 +57,9 @@ git_install_hooks_local() {
     _git_install_hooks $sourceDir "${commands[@]}"
 }
 
+##################################################
 # Install git hooks with remote calls
+##################################################
 git_install_hooks_remote() {
     local -r remoteDirDefault=$(pwd)
     local -r sourceDirDefault='scripts/git/hooks'
@@ -70,7 +80,11 @@ git_install_hooks_remote() {
     _git_install_hooks $sourceDir "${commands[@]}"
 }
 
-# Returns true if current commit is a merge commit
+##################################################
+# Check if the current commit is a merge commit
+# OUTPUTS:
+#   True on merge commit, otherwise false.
+##################################################
 git_is_merge_commit() {
     if git rev-parse -q --verify MERGE_HEAD; then
         true
@@ -80,7 +94,13 @@ git_is_merge_commit() {
     false
 }
 
-# Check if current branch is in list
+##################################################
+# Check if the current branch is in provided list
+# ARGUMENTS:
+#   Array of branch names
+# OUTPUTS:
+#   True on match, otherwise false.
+##################################################
 git_is_current_branch_in_list() {
     local -r current=$(git_current_branch)
     branches=("$@")
@@ -97,9 +117,15 @@ git_is_current_branch_in_list() {
     return
 }
 
-# Install git hooks with provided commands
+##################################################
+# @internal
+# Add or replace generated git hooks with given set of commands
+# ARGUMENTS:
+#   - source directory with shared hooks
+#   - array of hook commands
+##################################################
 _git_install_hooks() {
-    local -r separator='### @auto-generated'
+    local -r separator='########## @auto-generated ##########'
     local -r sourceDir=$1
     shift
     commands=("$@")
@@ -130,17 +156,33 @@ _git_install_hooks() {
 
     done
 }
-# Common info message output
+##################################################
+# Print a given string with a semantic into prefix
+# ARGUMENTS:
+#   String to print
+# OUTPUTS:
+#   Write String to stdout
+##################################################
 msg_info () {
     echo "~ [INFO] $1"
 }
 
-# Common error message output
+##################################################
+# Print a given string with a semantic error prefix
+# ARGUMENTS:
+#   String to print
+# OUTPUTS:
+#   Write String to stdout
+##################################################
 msg_error () {
     echo "~ [ERROR] $1"
 }
 
+##################################################
 # Run PHP static analysis tool
+# RETURN:
+#   0 if no issue is found, non-zero corresponds with phpstan exit codes.
+##################################################
 php_analyse () {
     local -r analyser="vendor/bin/phpstan"
 
@@ -155,11 +197,15 @@ php_analyse () {
     if [ 0 -ne $analyser_exit_code ]; then
         msg_error "php static analysis failed"
         msg_error "please run PHPStan & fix the issues first"
-        exit 1
+        exit $analyser_exit_code
     fi
 }
 
-# Run PHP linter tool on cached files
+##################################################
+# Run PHP linter tool on cached/staged files
+# RETURN:
+#   0 if no issue is found, non-zero corresponds with cs fixer exit codes.
+##################################################
 php_lint_cached () {
     local -r fixer="vendor/bin/php-cs-fixer"
 
@@ -180,13 +226,15 @@ php_lint_cached () {
     if [ 0 -ne $fixer_exit_code ]; then
         msg_error "php linting failed"
         msg_error "please run PHP CS fixer first"
-        exit 1
+        exit $fixer_exit_code
     fi
 
     return
 }
 
+##################################################
 # Alias for PHP lint
+##################################################
 php_cs_cached () {
     php_lint_cached
 }

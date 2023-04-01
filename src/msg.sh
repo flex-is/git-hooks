@@ -7,12 +7,24 @@
 # the LICENSE file that was distributed with this source code.
 ###################################################################################################:
 
-# Common info message output
+##################################################
+# Print a given string with a semantic into prefix
+# ARGUMENTS:
+#   String to print
+# OUTPUTS:
+#   Write String to stdout
+##################################################
 msg_info () {
     echo "~ [INFO] $1"
 }
 
-# Common error message output
+##################################################
+# Print a given string with a semantic error prefix
+# ARGUMENTS:
+#   String to print
+# OUTPUTS:
+#   Write String to stdout
+##################################################
 msg_error () {
     echo "~ [ERROR] $1"
 }
