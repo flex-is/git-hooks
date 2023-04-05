@@ -46,42 +46,42 @@ git_current_branch() {
 # Install standard git hooks
 ##################################################
 git_install_hooks_local() {
-    local -r sourceDirDefault='scripts/git/hooks'
+    local -r scriptDirDefault='scripts/git/hooks'
     local commands=("@source")
 
-    read -p "Enter source dir ($sourceDirDefault): " sourceDir
-    if [ -z $sourceDir ]; then
-        sourceDir=$sourceDirDefault
+    read -p "Enter script directory ($scriptDirDefault): " scriptDir
+    if [ -z $scriptDir ]; then
+        scriptDir=$scriptDirDefault
     fi
 
-    _git_install_hooks $sourceDir "${commands[@]}"
+    _git_install_hooks $scriptDir "${commands[@]}"
 }
 
 ##################################################
 # Install git hooks with remote calls
 ##################################################
 git_install_hooks_remote() {
-    local -r remoteDirDefault=$(pwd)
-    local -r sourceDirDefault='scripts/git/hooks'
+    local -r projectRootDefault=$(pwd)
+    local -r scriptDirDefault='scripts/git/hooks'
     local commands=()
 
     read -p "Enter SSH host: " remoteHost
-    read -p "Enter remote root dir ($remoteDirDefault): " remoteDir
-    read -p "Enter source dir ($sourceDirDefault): " sourceDir
-    if [ -z $remoteDir ]; then
-        remoteDir=$remoteDirDefault
+    read -p "Enter project root directory ($projectRootDefault): " projectRoot
+    read -p "Enter script directory ($scriptDirDefault): " scriptDir
+    if [ -z $projectRoot ]; then
+        projectRoot=$projectRootDefault
     fi
-    if [ -z $sourceDir ]; then
-        sourceDir=$sourceDirDefault
+    if [ -z $scriptDir ]; then
+        scriptDir=$scriptDirDefault
     fi
 
-    commands+=("ssh $remoteHost \"cd $remoteDir; @source\"")
+    commands+=("ssh $remoteHost \"cd $projectRoot; @source\"")
 
-    _git_install_hooks $sourceDir "${commands[@]}"
+    _git_install_hooks $scriptDir "${commands[@]}"
 }
 
 ##################################################
-# Check if the current commit is a merge commit
+# Check whether the current commit is a merge commit
 # OUTPUTS:
 #   True on merge commit, otherwise false.
 ##################################################
@@ -95,7 +95,7 @@ git_is_merge_commit() {
 }
 
 ##################################################
-# Check if the current branch is in provided list
+# Check whether the current branch is in provided list
 # ARGUMENTS:
 #   Array of branch names
 # OUTPUTS:
