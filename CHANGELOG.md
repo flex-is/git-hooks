@@ -1,14 +1,18 @@
 # Changelog
 
-## Unreleased
--   Make dist includes only `.sh` files
--   Added automatic source header comments
--   Added automatic dist header comment
--   Added git check for whitespace errors
--   Added git function to get name of the current branch
--   Added git function to check if current branch is in list of provided names
--   Customized relative path to source git hooks. default `scripts\git\hooks`
--   Allow each hook file to choose executable shell
+## 0.2.0 - 2023-04-05
+### Added
+-   Validation of header comments inside source files
+-   Single header comment in `dist` files inluding license information
+-   Allow each hook to choose executable shell
+-   Customized relative path to git hook source files (default `scripts\git\hooks`)
+-   New functions:
+    -   `git_check_whitespace_cached` checks for whitespace errors on cached files
+    -   `git_current_branch` returns short name of the current branch
+    -   `git_is_current_branch_in_list` checks if current branch is in a list
+
+### Changed
+-   Makefile `dist` recipe includes only  `.sh` files
 
 ## 0.1.0 - 2023-03-26
 ### Added

@@ -5,7 +5,7 @@
 -   [`git_install_hooks_local`](#git-hooks) - Install standard git hooks
 -   [`git_install_hooks_remote`](#git-hooks) - Install git hooks with remote calls
 -   [`git_is_merge_commit`](#git-branch) - Check whether the current commit is a merge commit
--   [`git_is_current_branch_in_list`](#git-branch) - Check whether the current branch is in provided list
+-   [`git_is_current_branch_in_list`](#git-branch) - Check whether the current branch is in a list
 -   [`msg_error`](#message-output) - Print a given string with a semantic error prefix
 -   [`msg_info`](#message-output) - Print a given string with a semantic into prefix
 -   [`php_analyse`](#php-analyse) - Run PHP static analysis tool
@@ -43,7 +43,7 @@ fi
 ```
 
 ```bash
-# Check whether the current branch is in provided list
+# Check whether the current branch is in a list
 if [ git_is_current_branch_in_list 'main' 'pu' 'next' ]; then
     ...
 fi
