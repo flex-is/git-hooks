@@ -8,6 +8,9 @@ VERSION := $(shell cat VERSION)
 help: # Show help for each of the Makefile recipes.
 	@grep -E '^[a-zA-Z0-9 -]+:.*#' Makefile | sort | while read -r l; do printf "\033[1;32m$$(echo $$l | cut -f 1 -d':')\033[00m:$$(echo $$l | cut -f 2- -d'#')\n"; done
 
+install: # Installs project dependencies
+	git_install_hooks_remote
+
 build: lint dist # Build and test application.
 
 lint: header-comments # Fix coding standards violations.
