@@ -50,7 +50,7 @@ Generate local hooks using `git_install_hooks_local`. If you are developing on a
 ```bash
 #!/bin/sh
 ssh remote_host "cd /remote/path; sh .githooks/pre-commit"
-### @auto-generated
+########## @auto-generated ##########
 ```
 
 #### `.githooks/pre-commit`:
