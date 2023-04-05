@@ -6,11 +6,17 @@
 
 This repository contains useful bash functions for git hooks, including sharing hooks with your team.
 
-## Installation
+> 💡 See [documentation](/docs/functions.md) for the list of all functions.
+
+# Installation
+
+First, download the distributable file and save it to the desired location. To eliminate conflicts, create a dedicated file, e.g. `~/.bash_functions`.
 
 `$ curl -s https://raw.githubusercontent.com/flex-is/git-hooks/VERSION/dist/all.sh -o ~/.bash_functions`
 
-Download the latest distributable file to the desired location. To eliminate conflicts, you can create a dedicated file `~/.bash_functions` and import it in `~/.bash_aliases`:
+# Import
+
+To actually use the functions, you have to "import" or "include" them into your shell environment. You can import them directly in `~/.bash_aliases`:
 
 ```bash
 if [ -f ~/.bash_functions ]; then
@@ -18,56 +24,59 @@ if [ -f ~/.bash_functions ]; then
 fi
 ```
 
-> 💡 When you invoke script non-interactively, these functions will not be recognized by default. You must either import them in the beginning of every script or set up variable `BASH_ENV=/.../.bash_functions`.
+> ⚠ When you invoke script non-interactively, these functions will not be recognized by default. You must either import them in the beginning of every script or set up variable `BASH_ENV=/.../.bash_functions`.
 
-## Usage
+# Usage
 
-Manually create a local git hook. Here is the list of currently provided functions:
--   git
-    -   `git_is_merge_commit` - check whether current commit is a merge commit
--   php
-    -   `php_lint_cached` - validate coding standards only on cached/staged files
-    -   `php_analyse` - run static analysis tool
+Create a dedicated directory in your project and commit hook files inside it. Hook names are identical to the [ones used by git](https://git-scm.com/docs/githooks). We use `scripts/git/hooks` in our example.
 
-## Share
-
-If you are developing in a team, you can create and share hooks inside the same repository.
-
-Create `.githooks` directory in the root of your project and commit hook files inside it. Hook names are identical to the [ones used by git](https://git-scm.com/docs/githooks).
+`project_root`:
 
 ```
-└── .githooks
-    ├── pre-commit
-    └── pre-push
+└── scripts
+    └──  git
+        └── hooks
+            ├── pre-commit
+            └── pre-push
 ```
 
-Generate local hooks using `git_install_hooks_local`. If you are developing on a remote server, you can use `git_install_hooks_remote`, where you will be asked for SSH host and remote path.
-
-### Remote example
-
-#### `.git/hooks/pre-commit`:
-
-```bash
-#!/bin/sh
-ssh remote_host "cd /remote/path; sh .githooks/pre-commit"
-########## @auto-generated ##########
-```
-
-#### `.githooks/pre-commit`:
+`scripts/git/hooks/pre-commit`:
 
 ```bash
 #!/bin/bash
 
-# Validate coding standards
-php_lint_cached
+git_check_whitespace_cached
 ```
 
-## Contributing
+## Local server
 
-When creating a new version, please generate distributable files with MakeFile `dist` target. This process is not yet fully automated.
+Generate local hooks using `git_install_hooks_local`. You will be asked to provide a relative path to hook scripts.
+
+```bash
+$ git_install_hooks_local
+Enter script directory (scripts/git/hooks): # relative path to hook scripts
+```
+
+## Remote server
+
+Generate local hooks, with calls to a remote server, using `git_install_hooks_remote`. In addition to local hooks, you will be asked to provide SSH host and remote project root.
+
+```bash
+$ git_install_hooks_remote
+Enter SSH host: # remote host
+Enter project root directory (pwd): # project root
+Enter script directory (scripts/git/hooks): # relative path to hook scripts
+```
+
+> 💡 You can add custom logic directly into your local git hooks (`.git/hooks/` directory), provided that you only change the lines after this placeholder:  
+> ########## @auto-generated ##########
+
+# Development
+
+When creating a new version, please update `VERSION` file and generate distributable files with MakeFile `dist` recipe. This process is not automated.
 
 `$ make dist`
 
-## License
+# License
 
 This package is licensed using the MIT License.
