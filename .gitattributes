@@ -14,6 +14,9 @@
 # in Unix via a file share from Windows, the scripts will work.
 *.sh text eol=lf
 
+# Allow trailing whitespace in Markdown files.
+*.md -whitespace
+
 #########################################
 # Exclude files from exporting          #
 #########################################
