@@ -192,7 +192,7 @@ php_analyse () {
     fi
 
     msg_info "running php static analysis..."
-    $analyser analyse -c phpstan.dist.neon --memory-limit=4G --no-interaction --no-progress --quiet
+    php $analyser analyse -c phpstan.dist.neon --memory-limit=4G --no-interaction --no-progress --quiet
     local -i -r analyser_exit_code=$?
     if [ 0 -ne $analyser_exit_code ]; then
         msg_error "php static analysis failed"
@@ -221,7 +221,7 @@ php_lint_cached () {
     fi
 
     msg_info "running php linting..."
-    $fixer fix --config=.php-cs-fixer.dist.php --no-interaction --dry-run --stop-on-violation --quiet $cached_files
+    php $fixer fix --config=.php-cs-fixer.dist.php --no-interaction --dry-run --stop-on-violation --quiet $cached_files
     local -i -r fixer_exit_code=$?
     if [ 0 -ne $fixer_exit_code ]; then
         msg_error "php linting failed"

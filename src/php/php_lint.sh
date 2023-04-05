@@ -27,7 +27,7 @@ php_lint_cached () {
     fi
 
     msg_info "running php linting..."
-    $fixer fix --config=.php-cs-fixer.dist.php --no-interaction --dry-run --stop-on-violation --quiet $cached_files
+    php $fixer fix --config=.php-cs-fixer.dist.php --no-interaction --dry-run --stop-on-violation --quiet $cached_files
     local -i -r fixer_exit_code=$?
     if [ 0 -ne $fixer_exit_code ]; then
         msg_error "php linting failed"
