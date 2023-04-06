@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+### Added
+-   New functions:
+    -   `php_test` triggers php unit testing tool
+
 ## 0.2.0 - 2023-04-05
 ### Added
 -   Validation of header comments inside source files

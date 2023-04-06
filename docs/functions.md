@@ -11,6 +11,7 @@
 -   [`php_analyse`](#php-analyse) - Run PHP static analysis tool
 -   [`php_cs_cached`](#php-lint) - Alias for `php_lint_cached`
 -   [`php_lint_cached`](#php-lint) - Run PHP linter tool on cached/staged files
+-   [`php_test`](#php-test) - Run PHP testing tool
 
 # Message output
 
@@ -97,4 +98,13 @@ php_lint_cached
 
 # aliases
 php_cs_cached
+```
+
+## PHP Test
+
+Run [PHP Unit](https://cs.symfony.com) based on committed configuration file.
+
+```bash
+php_test
+# php vendor/bin/phpunit -c phpunit.dist.xml --no-output
 ```
