@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.3.0 - 2023-04-06
 ### Added
 -   New functions:
     -   `php_test` triggers php unit testing tool
