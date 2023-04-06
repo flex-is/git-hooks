@@ -25,6 +25,19 @@ git_current_branch() {
 }
 
 ##################################################
+# Install git hooks according to user input.
+# Useful for install scripts.
+##################################################
+git_install_hooks() {
+    read -p "Select the hook connection type (remote/local): " remote
+    if [ -z $remote ] || [[ ${remote@L} == r* ]]; then
+        git_install_hooks_remote
+    else
+        git_install_hooks_local
+    fi
+}
+
+##################################################
 # Install standard git hooks
 ##################################################
 git_install_hooks_local() {

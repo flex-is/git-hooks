@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+### Added
+-   New functions:
+    -   `git_install_hooks` interactive install wrapper
+
 ## 0.3.0 - 2023-04-06
 ### Added
 -   New functions:

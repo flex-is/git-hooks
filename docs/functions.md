@@ -2,6 +2,7 @@
 
 -   [`git_check_whitespace_cached`](#git-validation) - Check whitespace errors on cached/staged files
 -   [`git_current_branch`](#git-branch) - Returns short name of the current branch
+-   [`git_install_hooks`](#git-hooks) - Interactive install wrapper
 -   [`git_install_hooks_local`](#git-hooks) - Install standard git hooks
 -   [`git_install_hooks_remote`](#git-hooks) - Install git hooks with remote calls
 -   [`git_is_merge_commit`](#git-branch) - Check whether the current commit is a merge commit
@@ -59,14 +60,22 @@ fi
 
 ## Git hooks
 
-Install local hook.
+Install local or remote hooks according to user input.
+
+```bash
+$ git_install_hooks
+Select the hook connection type (remote/local): # default remote or 'r'
+# git_install_hooks_[remote|local]
+```
+
+Install local hooks.
 
 ```bash
 $ git_install_hooks_local
 Enter script directory (scripts/git/hooks): # relative path to hook scripts
 ```
 
-Install remote hook.
+Install remote hooks.
 
 ```bash
 $ git_install_hooks_remote
