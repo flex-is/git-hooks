@@ -1,5 +1,5 @@
 ####################################################################################################
-# Helper package for git hooks v0.3.0
+# Helper package for git hooks v0.4.0
 # https://github.com/flex-is/git-hooks/
 #
 # Released under the MIT License
